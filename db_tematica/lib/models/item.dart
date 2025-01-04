@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+
 class Item {
   final String id;
   final String image;
@@ -11,7 +14,7 @@ class Item {
   final int buyPrice;
   final int sellPrice;
   final String createdWith;
-  final String updatedAt;
+  final String obtainedBy;
   final String category;
 
   Item({
@@ -27,9 +30,37 @@ class Item {
     required this.buyPrice,
     required this.sellPrice,
     required this.createdWith,
-    required this.updatedAt,
+    required this.obtainedBy,
     required this.category,
   });
+
+  // Get image widget from base64 or asset path
+  Widget getImage({double? width, double? height}) {
+    try {
+      if (image.startsWith('data:image')) {
+        final imageData = image.split(',')[1];
+        return Image.memory(
+          base64Decode(imageData),
+          width: width,
+          height: height,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => 
+            Icon(Icons.image_not_supported, size: height ?? 24),
+        );
+      } else {
+        return Image.asset(
+          image,
+          width: width,
+          height: height,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => 
+            Icon(Icons.image_not_supported, size: height ?? 24),
+        );
+      }
+    } catch (e) {
+      return Icon(Icons.image_not_supported, size: height ?? 24);
+    }
+  }
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
@@ -45,7 +76,7 @@ class Item {
       buyPrice: json['buyPrice'] as int,
       sellPrice: json['sellPrice'] as int,
       createdWith: json['createdWith'] as String,
-      updatedAt: json['updatedAt'] as String,
+      obtainedBy: json['obtainedBy'] as String,
       category: json['category'] as String,
     );
   }

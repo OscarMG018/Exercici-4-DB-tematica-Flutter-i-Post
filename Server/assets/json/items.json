@@ -1,0 +1,68 @@
+{
+    "items": [
+        {
+            "id": "1",
+            "image": "assets/images/terra_blade.png",
+            "name": "Terra Blade",
+            "description": "A powerful sword forged from the essence of light and night. Shoots sword beams at full health.",
+            "damage": 95,
+            "autoAttack": true,
+            "knockback": 6,
+            "critChance": 4,
+            "useTime": 20,
+            "buyPrice": 0,
+            "sellPrice": 10000,
+            "createdWith": "True Night's Edge + True Excalibur + Broken Hero's Sword",
+            "obtainedBy": "Crafted at Mythrill Anvil or Oricalcum Anvil",
+            "category": "Swords"
+        },
+        {
+            "id": "2",
+            "image": "assets/images/megashark.png",
+            "name": "Megashark",
+            "description": "A high-speed gun that turns bullets into a deadly rain. Very low knockback but extremely fast.",
+            "damage": 50,
+            "autoAttack": true,
+            "knockback": 1,
+            "critChance": 4,
+            "useTime": 7,
+            "buyPrice": 0,
+            "sellPrice": 17500,
+            "createdWith": "Minishark + Illegal Gun Parts + 5x Shark Fin + 20x Souls of Might",
+            "obtainedBy": "Crafted at Mythrill Anvil or Oricalcum Anvil",
+            "category": "Guns"
+        },
+        {
+            "id": "3",
+            "image": "assets/images/last_prism.png",
+            "name": "Last Prism",
+            "description": "Channels a devastating prismatic beam of light that grows in power. Consumes mana rapidly.",
+            "damage": 110,
+            "autoAttack": false,
+            "knockback": 2,
+            "critChance": 4,
+            "useTime": 10,
+            "buyPrice": 0,
+            "sellPrice": 225000,
+            "createdWith": "",
+            "obtainedBy": "Drops from Moon Lord (16.67% chance)",
+            "category": "Magic"
+        },
+        {
+            "id": "4",
+            "image": "assets/images/stardust_dragon.png",
+            "name": "Stardust Dragon Staff",
+            "description": "Summons a celestial dragon that grows longer with each segment. Follows enemies and attacks automatically.",
+            "damage": 90,
+            "autoAttack": true,
+            "knockback": 3,
+            "critChance": 4,
+            "useTime": 30,
+            "buyPrice": 0,
+            "sellPrice": 200000,
+            "createdWith": "18x Stardust Fragments",
+            "obtainedBy": "Crafted at Ancient Manipulator",
+            "category": "Summon"
+        }
+    ]
+} 

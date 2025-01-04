@@ -89,3 +89,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+  assets:
+    - assets/images/platinum_coin.png
+    - assets/images/gold_coin.png
+    - assets/images/silver_coin.png
+    - assets/images/copper_coin.png

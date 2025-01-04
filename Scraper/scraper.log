@@ -1,0 +1,50 @@
+2024-12-18 18:33:37,643 - INFO - Scraping process Started
+2024-12-18 18:33:37,643 - INFO - Getting item links from https://terraria.wiki.gg/es/wiki/Armas
+2024-12-18 18:33:38,709 - INFO - item to scrape: 341
+2024-12-18 18:33:38,710 - INFO - Scraping category: Armas cuerpo a cuerpo
+2024-12-18 18:33:38,710 - INFO - 0/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_cobre
+2024-12-18 18:33:40,061 - INFO - 1/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_esta%C3%B1o
+2024-12-18 18:33:41,516 - INFO - 2/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_hierro
+2024-12-18 18:33:43,046 - INFO - 3/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_plomo
+2024-12-18 18:33:44,409 - INFO - 4/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_plata
+2024-12-18 18:33:45,972 - INFO - 5/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_tungsteno
+2024-12-18 18:33:47,447 - INFO - 6/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_oro
+2024-12-18 18:33:49,261 - INFO - 7/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_platino
+2024-12-18 18:33:50,775 - INFO - 8/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_de_madera
+2024-12-18 18:33:52,390 - INFO - 9/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_de_madera_boreal
+2024-12-18 18:33:53,861 - INFO - Saving items to json
+2024-12-18 18:33:53,863 - INFO - Scraping process Finished
+2024-12-18 18:35:19,194 - INFO - Scraping process Started
+2024-12-18 18:35:19,195 - INFO - Getting item links from https://terraria.wiki.gg/es/wiki/Armas
+2024-12-18 18:35:20,263 - INFO - item to scrape: 341
+2024-12-18 18:35:20,263 - INFO - Scraping category: Armas cuerpo a cuerpo
+2024-12-18 18:35:20,263 - INFO - 0/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_cobre
+2024-12-18 18:35:21,019 - ERROR - No materials found for item 0
+2024-12-18 18:35:21,019 - ERROR - No estacion found for item 0
+2024-12-18 18:35:21,737 - INFO - 1/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_esta%C3%B1o
+2024-12-18 18:35:23,134 - INFO - 2/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_hierro
+2024-12-18 18:35:24,594 - INFO - 3/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_plomo
+2024-12-18 18:35:25,952 - INFO - 4/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_plata
+2024-12-18 18:35:27,457 - INFO - 5/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_tungsteno
+2024-12-18 18:39:40,302 - INFO - Scraping process Started
+2024-12-18 18:39:40,302 - INFO - Getting item links from https://terraria.wiki.gg/es/wiki/Armas
+2024-12-18 18:39:41,544 - INFO - item to scrape: 341
+2024-12-18 18:39:41,545 - INFO - Scraping category: Armas cuerpo a cuerpo
+2024-12-18 18:39:41,545 - INFO - 0/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_cobre
+2024-12-18 18:39:42,343 - ERROR - No materials found for item 0
+2024-12-18 18:39:42,344 - ERROR - No estacion found for item 0
+2024-12-18 18:39:42,975 - INFO - 1/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_esta%C3%B1o
+2024-12-18 18:39:44,368 - INFO - 2/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_hierro
+2024-12-18 18:39:45,788 - INFO - 3/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_plomo
+2024-12-18 18:39:47,330 - INFO - 4/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_plata
+2024-12-18 18:39:48,773 - INFO - 5/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_tungsteno
+2024-12-18 18:44:07,258 - INFO - Scraping process Started
+2024-12-18 18:44:07,258 - INFO - Getting item links from https://terraria.wiki.gg/es/wiki/Armas
+2024-12-18 18:44:08,490 - INFO - item to scrape: 341
+2024-12-18 18:44:08,490 - INFO - Scraping category: Armas cuerpo a cuerpo
+2024-12-18 18:44:08,490 - INFO - 0/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_cobre
+2024-12-18 18:44:09,226 - ERROR - No materials found for item 0
+2024-12-18 18:44:09,226 - ERROR - No estacion found for item 0
+2024-12-18 18:44:09,811 - INFO - 1/341 Scraping item: https://terraria.wiki.gg/es/wiki/Espada_corta_de_esta%C3%B1o
+2024-12-18 18:44:11,296 - INFO - Saving items to json
+2024-12-18 18:44:11,300 - INFO - Scraping process Finished

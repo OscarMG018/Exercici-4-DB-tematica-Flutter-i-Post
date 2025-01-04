@@ -1,0 +1,36 @@
+{
+    "items": [
+        {
+            "id": 0,
+            "image": "assets/images/Espada-corta-de-cobre.png",
+            "name": "Espada corta de cobre",
+            "description": "La espada corta de cobre es una espada corta del modo normal creada con lingotes de cobre. Aparece en el inventario cuando se crea un nuevo personaje, sin importar si el mundo tiene cobre o esta\u00f1o (excepto en  3DS). Es la alternativa a la espada corta de esta\u00f1o.",
+            "damage": 5,
+            "autoAttack": false,
+            "knockback": 4,
+            "critChance": 4,
+            "useTime": 13,
+            "buyPrice": 0,
+            "sellPrice": 0,
+            "createdWith": "",
+            "obtainedBy": "",
+            "category": "Melee"
+        },
+        {
+            "id": 1,
+            "image": "assets/images/Espada-corta-de-estano.png",
+            "name": "Espada corta de esta\u00f1o",
+            "description": "La Espada corta de esta\u00f1o es la segunda espada corta m\u00e1s d\u00e9bil que viene despu\u00e9s de la Espada corta de cobre, le sigue la Espada corta de hierro.",
+            "damage": 7,
+            "autoAttack": false,
+            "knockback": 4,
+            "critChance": 4,
+            "useTime": 17,
+            "buyPrice": 0,
+            "sellPrice": 0,
+            "createdWith": "7x Lingote de esta\u00f1o",
+            "obtainedBy": "creado en Yunque de hierro o Yunque de plomo",
+            "category": "Melee"
+        }
+    ]
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/item.dart';
+import '../widgets/coin_display.dart';
 
 class ItemDetailPage extends StatelessWidget {
   final Item item;
@@ -9,7 +10,7 @@ class ItemDetailPage extends StatelessWidget {
     required this.item,
   });
 
-  Widget _buildDetailRow(String label, String value) {
+  Widget _buildDetailRow(String label, Widget value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -21,14 +22,28 @@ class ItemDetailPage extends StatelessWidget {
               fontSize: 16,
             ),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 16),
-            ),
-          ),
+          Expanded(child: value),
         ],
       ),
+    );
+  }
+
+  Widget _buildTextDetailRow(String label, String value) {
+    if (value.isEmpty) return const SizedBox.shrink();
+    return _buildDetailRow(
+      label,
+      Text(
+        value,
+        style: const TextStyle(fontSize: 16),
+      ),
+    );
+  }
+
+  Widget _buildPriceRow(String label, int value) {
+    if (value == 0) return const SizedBox.shrink();
+    return _buildDetailRow(
+      label,
+      CoinDisplay(value: value),
     );
   }
 
@@ -42,14 +57,7 @@ class ItemDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Image.asset(
-                  item.image,
-                  height: 200,
-                  errorBuilder: (context, error, stackTrace) => 
-                    const Icon(Icons.image_not_supported, size: 200),
-                ),
-              ),
+              Center(child: item.getImage(height: 200)),
               const SizedBox(height: 24),
               Text(
                 item.name,
@@ -61,41 +69,23 @@ class ItemDetailPage extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 item.description,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey,
+                  color: Colors.grey[700],
                 ),
               ),
               const SizedBox(height: 16),
-              _buildDetailRow('Category', item.category),
-              _buildDetailRow('Damage', item.damage.toString()),
-              _buildDetailRow('Auto Attack', item.autoAttack ? 'Yes' : 'No'),
-              _buildDetailRow('Knockback', item.knockback.toString()),
-              _buildDetailRow('Critical Chance', '${item.critChance}%'),
-              _buildDetailRow('Use Time', '${item.useTime} frames'),
-              _buildDetailRow('Buy Price', '${item.buyPrice}g'),
-              _buildDetailRow('Sell Price', '${item.sellPrice}g'),
+              _buildTextDetailRow('Category', item.category),
+              _buildTextDetailRow('Damage', item.damage.toString()),
+              _buildTextDetailRow('Auto Attack', item.autoAttack ? 'Yes' : 'No'),
+              _buildTextDetailRow('Knockback', item.knockback.toString()),
+              _buildTextDetailRow('Critical Chance', '${item.critChance}%'),
+              _buildTextDetailRow('Use Time', '${item.useTime} frames'),
+              _buildPriceRow('Buy Price', item.buyPrice),
+              _buildPriceRow('Sell Price', item.sellPrice),
+              _buildTextDetailRow('Created With', item.createdWith),
+              _buildTextDetailRow('Obtained By', item.obtainedBy),
               const SizedBox(height: 8),
-              const Text(
-                'Created With:',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                item.createdWith,
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Last Updated: ${item.updatedAt}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
-              ),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/item.dart';
+import 'coin_display.dart';
 
 class ItemCard extends StatelessWidget {
   final Item item;
@@ -11,16 +12,20 @@ class ItemCard extends StatelessWidget {
     required this.onTap,
   });
 
+  Widget _buildObtainingSection() {
+    if (item.obtainedBy.isNotEmpty) {
+      return Text('Obtained by: ${item.obtainedBy}');
+    } else if (item.createdWith.isNotEmpty) {
+      return Text('Created with: ${item.createdWith}');
+    }
+    return const SizedBox.shrink();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Image.asset(
-          item.image,
-          width: 50,
-          height: 50,
-          errorBuilder: (context, error, stackTrace) => const Icon(Icons.image_not_supported),
-        ),
+        leading: item.getImage(width: 50, height: 50),
         title: Text(item.name),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,13 +37,18 @@ class ItemCard extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text('Damage: ${item.damage}'),
-            Text('Created with: ${item.createdWith}'),
-          ],
+            _buildObtainingSection(),
+          ],  
         ),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('${item.buyPrice}g'),
+            if (item.buyPrice > 0)
+              CoinDisplay(
+                value: item.buyPrice,
+                compact: true,
+                iconSize: 14,
+              ),
             const Icon(Icons.arrow_forward_ios, size: 16),
           ],
         ),
