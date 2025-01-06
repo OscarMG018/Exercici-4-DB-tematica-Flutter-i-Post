@@ -25,7 +25,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: item.getImage(width: 50, height: 50),
+        leading: item.getImage(width: 30, height: 30),
         title: Text(item.name),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -52,7 +52,7 @@ class Item {
           image,
           width: width,
           height: height,
-          fit: BoxFit.cover,
+          fit: BoxFit.scaleDown,
           errorBuilder: (context, error, stackTrace) => 
             Icon(Icons.image_not_supported, size: height ?? 24),
         );
@@ -64,7 +64,7 @@ class Item {
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
-      id: json['id'] as String,
+      id: json['id'].toString(),
       image: json['image'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
@@ -75,7 +75,7 @@ class Item {
       useTime: json['useTime'] as int,
       buyPrice: json['buyPrice'] as int,
       sellPrice: json['sellPrice'] as int,
-      createdWith: json['createdWith'] as String,
+      createdWith: (json['createdWith'] as String?) ?? "",
       obtainedBy: json['obtainedBy'] as String,
       category: json['category'] as String,
     );

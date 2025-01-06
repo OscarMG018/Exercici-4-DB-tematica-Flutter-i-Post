@@ -82,8 +82,8 @@ app.get('/api/items/search/:term', async (req, res) => {
     }
 
     const filteredItems = itemsData.items.filter(item => 
-        item.name.toLowerCase().includes(searchTerm) ||
-        item.createdWith.toLowerCase().includes(searchTerm)
+        item.name?.toLowerCase().includes(searchTerm) ||
+        item.createdWith?.toLowerCase().includes(searchTerm)
     );
     
     // Convert all images to base64
