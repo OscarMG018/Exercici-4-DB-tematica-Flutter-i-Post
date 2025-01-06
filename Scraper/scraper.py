@@ -11,8 +11,8 @@ from urllib.parse import urljoin
 url = "https://terraria.wiki.gg/es/wiki/Armas"
 categoriesToScrape = ["Armas cuerpo a cuerpo", "Armas a distancia", "Armas mágicas", "Armas de invocación"]
 interval = 1
-test = True
-testAmount = 2
+test = False
+testAmount = 20
 scriptPath = os.path.dirname(os.path.abspath(__file__))
 
 def sanitize_string(input_string):
@@ -84,6 +84,46 @@ def get_category_name(category):
     elif category == "Armas de invocación":
         return "Summon"
 
+def get_money_value(id,pi_data_value):
+    multipliers = []
+    for a_tag in pi_data_value.find_all('a', href=True):
+        href = a_tag['href']
+        if 'mc' in href or 'Mc' in href:
+            multipliers.append(1)
+        elif 'mp' in href or 'Mp' in href:
+            multipliers.append(1000000)
+        elif 'mo' in href or 'Mo' in href:
+            multipliers.append(10000)
+    for span in pi_data_value.find_all("span"):
+        if span.has_attr("title"):
+            title = span["title"]
+            if "Moneda de plata" in title:
+                multipliers.append(100)
+            elif "Moneda de oro" in title:
+                multipliers.append(10000)
+            elif "Moneda de platino" in title:
+                multipliers.append(1000000)
+            elif "Moneda de cobre" in title:
+                multipliers.append(1)
+            else:
+                logging.error(f"Incomoatible title on {id} {title}")
+                multipliers.append(1)
+    if len(multipliers) == 0:
+        logging.error(f"No multipliers found on {id}")
+        return 0
+    numbers = pi_data_value.stripped_strings
+    #remove empty strings
+    numbers = list(filter(lambda x: x != '', numbers))
+    numbers = list(filter(lambda x: x != '()', numbers))
+    numbers = list(filter(lambda x: x != '(', numbers))
+    numbers = list(filter(lambda x: x != ')', numbers))
+    total = 0
+    if len(numbers) != len(multipliers):
+        logging.error(f"Numbers and multipliers don't match) on {id} {numbers} {multipliers}")
+        return 0
+    for i,number in enumerate(numbers):
+        total += get_value_of_stat(id,"money",number)*multipliers[i]
+    return total
 
 def get_image(id,json_template,soup):
     fileName = sanitize_string(json_template["name"]).replace(" ","-") + ".png"
@@ -170,7 +210,7 @@ def get_stats(id,json_template,soup,category):
                             velocidad = get_velocidad(id, stat.find("div", class_="pi-data-value").text.strip())
                             useTimeFound = True    
                     elif stat.attrs["data-source"].lower() == "dejado por":
-                        json_template["obtainedBy"] = "denjado por: " + stat.find("div", class_="pi-data-value").text.strip()
+                        json_template["obtainedBy"] = "dejado por: " + stat.find("div", class_="pi-data-value").text.strip()
                     elif stat.attrs["data-source"].lower() == "encontrado en":
                         json_template["obtainedBy"] = "encontrado en: " + stat.find("div", class_="pi-data-value").text.strip()
                     elif stat.attrs["data-source"].lower() == "comprado a":
@@ -222,13 +262,28 @@ def get_materials(element):
     
     for link in links:
         previous_text = link.previous_sibling
-        quantity = previous_text.strip().split()[0] if previous_text and previous_text.strip() else '1'
-        item_name = link.text
-        formatted_items.append(f"{quantity}x {item_name}")
+        if previous_text and isinstance(previous_text, str):  # Ensure previous_text is a string
+            quantity = previous_text.strip().split()[0] if previous_text.strip() else '1'
+            item_name = link.text
+            formatted_items.append(f"{quantity}x {item_name}")
     
     return ' + '.join(formatted_items)
 
-def get_crafting(id,json_template,soup):
+
+def get_materials_from_table(element):
+    final_text = ""
+    texts = list(element.find("td", class_="ingredients").stripped_strings)
+    print(texts)
+    for i in range(0, len(texts), 2):
+        if i+1 < len(texts):
+            final_text += f"{texts[i+1]}x {texts[i]}"
+        else:
+            final_text += f"{texts[i]}"
+        if i < len(texts) - 2:
+            final_text += " + "
+    
+
+def get_crafting(id,json_template,soup: BeautifulSoup):
     sideBar = soup.find("aside", class_="portable-infobox")
     materiales = None
     estacion = None
@@ -243,6 +298,7 @@ def get_crafting(id,json_template,soup):
                     if stat.attrs["data-source"].lower() == "materiales":
                         materiales = get_materials(stat.find("div", class_="pi-data-value"))
                         json_template["createdWith"] = materiales
+                        pass
                     elif stat.attrs["data-source"].lower() == "estacion":
                         links = stat.find("div", class_="pi-data-value").find_all("a", title=True)
                         station_names = [link['title'] for link in links]
@@ -253,19 +309,68 @@ def get_crafting(id,json_template,soup):
                         if label.text.lower() == "creado con":
                             materiales = get_materials(stat.find("div", class_="pi-data-value"))
                             json_template["createdWith"] = materiales
+                            pass
                         elif label.text.lower() == "creado en":
                             links = stat.find("div", class_="pi-data-value").find_all("a", title=True)
                             station_names = [link['title'] for link in links]
                             estacion = " o ".join(station_names)
-                            json_template["obtainedBy"] = "creado en " + estacion
-                            
+                            json_template["obtainedBy"] = "creado en " + estacion                  
         else:
             logging.error(f"No statsSection found for item {id}")
     if (not materiales):
-        logging.error(f"No materials found for item {id}")
+        #logging.error(f"No materials found for item {id}")
+        pass
+    recipieTable = soup.find("table", class_="recipes")
+    if not recipieTable:
+        recipieTable = soup.find("table")
+        if recipieTable:
+            header = recipieTable.find("tr", text="Resultado")
+            if not header:
+                recipieTable = None
+    print(recipieTable,"\n")
+    if recipieTable:
+        #inspect the table firts row to get the materials
+        row = recipieTable.find("tbody").find("tr", attrs={"data-rowid": True})
+        print(row,"\n")
+        if row:
+            #check if result is the item
+            result = row.find("td", class_="result").text
+            print(result,"\n")
+            if (json_template["name"].lower() in result.lower()):
+                materiales = get_materials_from_table(row)
+                json_template["createdWith"] = materiales
+                estacion = row.find("td", class_="station").text
+
     if (not estacion):
         logging.error(f"No estacion found for item {id}")
-    
+
+# Get the buy and sell price of the item
+def get_money(id,json_template,soup):
+    sideBar = soup.find("aside", class_="portable-infobox")
+    if not sideBar:
+        logging.error(f"No sideBar found for item {id}")
+    else:
+        sections = sideBar.findAll("section")
+        if len(sections) > 1:
+            for section in sections:
+                stats = section.findAll("div", class_="pi-item")
+                for stat in stats:
+                    if stat.attrs["data-source"].lower() == "compra":
+                        json_template["buyPrice"] = get_money_value(id,  stat.find("div", class_="pi-data-value"))
+                    elif stat.attrs["data-source"].lower() == "venta":
+                        json_template["sellPrice"] = get_money_value(id, stat.find("div", class_="pi-data-value"))
+                    label = stat.findNext("h3", class_="pi-data-label")
+                    if (label):
+                        if label.text.lower() == "compra":
+                            json_template["buyPrice"] = get_money_value(id, stat.find("div", class_="pi-data-value"))
+                        elif label.text.lower() == "venta":
+                            json_template["sellPrice"] = get_money_value(id, stat.find("div", class_="pi-data-value"))
+        else:
+            logging.error(f"No statsSection found for item {id}")
+        if not json_template["buyPrice"] and "comprado a" in json_template["obtainedBy"]:
+            logging.error(f"No buyPrice found for item {id}")
+        if not json_template["sellPrice"]:
+            logging.error(f"No sellPrice found for item {id}")
 
 # Get all item links
 def get_item_links():
@@ -348,7 +453,9 @@ def get_item_details(id,category,url):
     get_name(id,json_template,soup)
     get_description(id,json_template,soup)
     get_stats(id,json_template,soup,get_category_name(category))
-    get_crafting(id,json_template,soup)
+    if (json_template["obtainedBy"] == ""):
+        get_crafting(id,json_template,soup)
+    get_money(id,json_template,soup)
 
     get_image(id,json_template,soup)
 

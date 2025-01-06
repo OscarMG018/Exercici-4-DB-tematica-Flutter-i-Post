@@ -1,7 +1,7 @@
 {
     "categories": [
-        "Swords",
-        "Guns",
+        "Melee",
+        "Ranged",
         "Magic",
         "Summon"
     ]
