@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'screens/categories_page.dart';
+import 'providers/item_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'DB Tematica',
-      home: CategoriesPage(),
+    return ChangeNotifierProvider(
+      create: (_) => ItemProvider(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Armes Terraria',
+        home: CategoriesPage(),
+      ),
     );
   }
 }

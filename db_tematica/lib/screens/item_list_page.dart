@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/item.dart';
-import '../utils/data_utils.dart';
+import '../providers/item_provider.dart';
 import '../widgets/item_card.dart';
 import 'item_detail_page.dart';
+import '../utils/data_utils.dart';
 
 class ItemListPage extends StatelessWidget {
   final String category;
@@ -28,7 +30,6 @@ class ItemListPage extends StatelessWidget {
           }
 
           final items = snapshot.data ?? [];
-
           return ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: items.length,
